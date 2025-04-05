@@ -17,11 +17,14 @@ const Navbar: React.FC = () => {
           <Link to="/" className="text-gray-700 hover:text-gray-900 font-medium">
             Home
           </Link>
-          <Link to="/explore" className="text-gray-700 hover:text-gray-900 font-medium">
-            Explore
+          <Link to="/clubs" className="text-gray-700 hover:text-gray-900 font-medium">
+            Clubs
+          </Link>
+          <Link to="/meetups" className="text-gray-700 hover:text-gray-900 font-medium">
+            Meetups
           </Link>
           <Link to="/about" className="text-gray-700 hover:text-gray-900 font-medium">
-            About
+            About Us
           </Link>
         </div>
         
