@@ -10,7 +10,7 @@ const Navbar: React.FC = () => {
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
         <Link to="/" className="flex items-center gap-2">
           <Calendar className="h-6 w-6 text-meetup-green" />
-          <span className="text-xl font-bold">MeetupHive</span>
+          <span className="text-xl font-bold">Hacktivist</span>
         </Link>
         
         <div className="hidden md:flex items-center space-x-6">

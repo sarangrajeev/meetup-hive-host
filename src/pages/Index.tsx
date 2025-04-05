@@ -28,7 +28,7 @@ const Index: React.FC = () => {
                 Find your next favorite event
               </h1>
               <p className="text-lg mb-8 max-w-lg">
-                Join exciting meetups, workshops, and gatherings in your community. 
+                Join exciting hackathons, workshops, and gatherings in your community. 
                 Connect with like-minded people and expand your network.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
