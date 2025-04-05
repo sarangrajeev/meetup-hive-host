@@ -64,9 +64,9 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				meetup: {
-					green: '#10b981',
-					lightGreen: '#d1fae5',
-					gray: '#f3f4f6',
+					green: '#000000', // Changed to black
+					lightGreen: '#f5f5f5', // Changed to light gray
+					gray: '#f3f4f6', // Kept this light gray for contrast
 				}
 			},
 			borderRadius: {
