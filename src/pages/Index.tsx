@@ -5,7 +5,7 @@ import EventCard from "@/components/EventCard";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Calendar, MapPin, Search, TrendingUp, Users } from "lucide-react";
+import { Calendar, MapPin, Plus, Search, TrendingUp, Users } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
 const Index: React.FC = () => {
