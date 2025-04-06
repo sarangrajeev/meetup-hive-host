@@ -10,6 +10,9 @@ import CreateEvent from "./pages/CreateEvent";
 import NotFound from "./pages/NotFound";
 import Explore from "./pages/Explore";
 import About from "./pages/About";
+import Clubs from "./pages/Clubs";
+import ClubDetail from "./pages/ClubDetail";
+import ClubRegistration from "./pages/ClubRegistration";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +28,9 @@ const App = () => (
           <Route path="/events/create" element={<CreateEvent />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/about" element={<About />} />
+          <Route path="/clubs" element={<Clubs />} />
+          <Route path="/clubs/:id" element={<ClubDetail />} />
+          <Route path="/clubs/register" element={<ClubRegistration />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
