@@ -20,12 +20,12 @@ const Index: React.FC = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-meetup-green/90 to-emerald-600 text-white py-16">
+      <section className="bg-gradient-to-r from-black to-gray-800 text-white py-16">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="md:w-1/2 mb-8 md:mb-0">
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                Find your next favorite event
+                Find your next favorite workshop
               </h1>
               <p className="text-lg mb-8 max-w-lg">
                 Join exciting hackathons, workshops, and gatherings in your community. 
@@ -33,13 +33,13 @@ const Index: React.FC = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/events/create">
-                  <Button className="w-full sm:w-auto bg-white text-meetup-green hover:bg-gray-100">
+                  <Button className="w-full sm:w-auto bg-white text-black hover:bg-gray-100">
                     Host an Event
                   </Button>
                 </Link>
-                <Link to="/explore">
+                <Link to="/workshops">
                   <Button variant="outline" className="w-full sm:w-auto border-white text-white hover:bg-white/10">
-                    Explore Events
+                    Explore Workshops
                   </Button>
                 </Link>
               </div>
@@ -62,7 +62,7 @@ const Index: React.FC = () => {
                       className="pl-10"
                     />
                   </div>
-                  <Button className="w-full bg-meetup-green hover:bg-meetup-green/90">
+                  <Button className="w-full bg-black hover:bg-gray-800">
                     Search
                   </Button>
                 </div>
@@ -80,8 +80,8 @@ const Index: React.FC = () => {
             {categories.map((category) => (
               <Link to={`/category/${category}`} key={category}>
                 <div className="bg-gray-50 hover:bg-gray-100 transition-colors rounded-lg p-4 text-center">
-                  <div className="w-12 h-12 bg-meetup-lightGreen rounded-full flex items-center justify-center mx-auto mb-3">
-                    <Calendar className="h-6 w-6 text-meetup-green" />
+                  <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <Calendar className="h-6 w-6 text-gray-700" />
                   </div>
                   <span className="font-medium text-gray-700">{category}</span>
                 </div>
@@ -95,8 +95,8 @@ const Index: React.FC = () => {
       <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl font-bold">Featured Events</h2>
-            <Link to="/explore" className="text-meetup-green hover:text-meetup-green/80 font-medium flex items-center">
+            <h2 className="text-2xl font-bold">Featured Workshops</h2>
+            <Link to="/workshops" className="text-black hover:text-gray-700 font-medium flex items-center">
               View all <TrendingUp className="ml-1 h-4 w-4" />
             </Link>
           </div>
@@ -108,7 +108,7 @@ const Index: React.FC = () => {
                 Be the first to host an event in your community!
               </p>
               <Link to="/events/create">
-                <Button className="flex items-center mx-auto bg-meetup-green hover:bg-meetup-green/90">
+                <Button className="flex items-center mx-auto bg-black hover:bg-gray-800">
                   <Plus className="h-4 w-4 mr-1" />
                   Host Event
                 </Button>
@@ -129,22 +129,22 @@ const Index: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-gray-50 p-6 rounded-lg text-center">
-              <div className="w-12 h-12 bg-meetup-lightGreen rounded-full flex items-center justify-center mx-auto mb-3">
-                <Calendar className="h-6 w-6 text-meetup-green" />
+              <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-3">
+                <Calendar className="h-6 w-6 text-gray-700" />
               </div>
               <h3 className="text-3xl font-bold text-gray-800 mb-2">{events.length}+</h3>
               <p className="text-gray-600">Active Events</p>
             </div>
             <div className="bg-gray-50 p-6 rounded-lg text-center">
-              <div className="w-12 h-12 bg-meetup-lightGreen rounded-full flex items-center justify-center mx-auto mb-3">
-                <Users className="h-6 w-6 text-meetup-green" />
+              <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-3">
+                <Users className="h-6 w-6 text-gray-700" />
               </div>
               <h3 className="text-3xl font-bold text-gray-800 mb-2">5,000+</h3>
               <p className="text-gray-600">Community Members</p>
             </div>
             <div className="bg-gray-50 p-6 rounded-lg text-center">
-              <div className="w-12 h-12 bg-meetup-lightGreen rounded-full flex items-center justify-center mx-auto mb-3">
-                <MapPin className="h-6 w-6 text-meetup-green" />
+              <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-3">
+                <MapPin className="h-6 w-6 text-gray-700" />
               </div>
               <h3 className="text-3xl font-bold text-gray-800 mb-2">20+</h3>
               <p className="text-gray-600">Cities Covered</p>
@@ -156,7 +156,7 @@ const Index: React.FC = () => {
       {/* Newsletter Section */}
       <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="bg-meetup-green text-white rounded-lg p-8 text-center">
+          <div className="bg-black text-white rounded-lg p-8 text-center">
             <h2 className="text-2xl font-bold mb-4">Stay Updated</h2>
             <p className="max-w-2xl mx-auto mb-6">
               Subscribe to our newsletter to get updates on the latest events and community news
@@ -166,7 +166,7 @@ const Index: React.FC = () => {
                 placeholder="Your email address" 
                 className="bg-white/90 border-0 placeholder:text-gray-500"
               />
-              <Button className="bg-white text-meetup-green hover:bg-gray-100">
+              <Button className="bg-white text-black hover:bg-gray-100">
                 Subscribe
               </Button>
             </div>
