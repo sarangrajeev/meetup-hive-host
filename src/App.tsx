@@ -13,6 +13,7 @@ import About from "./pages/About";
 import Clubs from "./pages/Clubs";
 import ClubDetail from "./pages/ClubDetail";
 import ClubRegistration from "./pages/ClubRegistration";
+import Workshops from "./pages/Workshops";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ const App = () => (
           <Route path="/clubs" element={<Clubs />} />
           <Route path="/clubs/:id" element={<ClubDetail />} />
           <Route path="/clubs/register" element={<ClubRegistration />} />
+          <Route path="/workshops" element={<Workshops />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

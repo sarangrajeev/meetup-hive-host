@@ -20,8 +20,8 @@ const Navbar: React.FC = () => {
           <Link to="/clubs" className="text-black hover:text-gray-700 font-medium">
             Clubs
           </Link>
-          <Link to="/meetups" className="text-black hover:text-gray-700 font-medium">
-            Meetups
+          <Link to="/workshops" className="text-black hover:text-gray-700 font-medium">
+            Workshops
           </Link>
           <Link to="/about" className="text-black hover:text-gray-700 font-medium">
             About Us
