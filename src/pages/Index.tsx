@@ -1,312 +1,178 @@
 
 import React from "react";
-import { Link } from "react-router-dom";
+import { events } from "@/data/events";
+import EventCard from "@/components/EventCard";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Calendar, Code, Globe, MessageSquare, Users } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { events } from "@/data/events";
+import { Link } from "react-router-dom";
+import { Calendar, MapPin, Plus, Search, TrendingUp, Users } from "lucide-react";
+import { Input } from "@/components/ui/input";
 
 const Index: React.FC = () => {
-  // Get first 3 events for events section
-  const upcomingEvents = events.slice(0, 3);
+  // Get first 6 events for featured section
+  const featuredEvents = events.slice(0, 6);
+  
+  // Create a list of unique categories
+  const categories = [...new Set(events.map(event => event.category))];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
       
       {/* Hero Section */}
-      <section className="bg-black text-white py-24">
-        <div className="container mx-auto px-4 flex flex-col md:flex-row items-center">
-          <div className="md:w-1/2 mb-12 md:mb-0">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              Start Your FOSS Club Today
-            </h1>
-            <p className="text-xl mb-8 text-gray-300">
-              Create a space for your community to collaborate, learn, and grow together.
+      <section className="bg-gradient-to-r from-meetup-green/90 to-emerald-600 text-white py-16">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-between">
+            <div className="md:w-1/2 mb-8 md:mb-0">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                Find your next favorite event
+              </h1>
+              <p className="text-lg mb-8 max-w-lg">
+                Join exciting hackathons, workshops, and gatherings in your community. 
+                Connect with like-minded people and expand your network.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link to="/events/create">
+                  <Button className="w-full sm:w-auto bg-white text-meetup-green hover:bg-gray-100">
+                    Host an Event
+                  </Button>
+                </Link>
+                <Link to="/explore">
+                  <Button variant="outline" className="w-full sm:w-auto border-white text-white hover:bg-white/10">
+                    Explore Events
+                  </Button>
+                </Link>
+              </div>
+            </div>
+            <div className="md:w-1/2 flex justify-center">
+              <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+                <h3 className="font-semibold text-gray-800 mb-4">Find Events Near You</h3>
+                <div className="flex flex-col gap-4">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <Input 
+                      placeholder="Search events..." 
+                      className="pl-10"
+                    />
+                  </div>
+                  <div className="relative">
+                    <MapPin className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                    <Input 
+                      placeholder="Location" 
+                      className="pl-10"
+                    />
+                  </div>
+                  <Button className="w-full bg-meetup-green hover:bg-meetup-green/90">
+                    Search
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Category Section */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl font-bold mb-8">Browse by Category</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {categories.map((category) => (
+              <Link to={`/category/${category}`} key={category}>
+                <div className="bg-gray-50 hover:bg-gray-100 transition-colors rounded-lg p-4 text-center">
+                  <div className="w-12 h-12 bg-meetup-lightGreen rounded-full flex items-center justify-center mx-auto mb-3">
+                    <Calendar className="h-6 w-6 text-meetup-green" />
+                  </div>
+                  <span className="font-medium text-gray-700">{category}</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Events Section */}
+      <section className="py-12 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-2xl font-bold">Featured Events</h2>
+            <Link to="/explore" className="text-meetup-green hover:text-meetup-green/80 font-medium flex items-center">
+              View all <TrendingUp className="ml-1 h-4 w-4" />
+            </Link>
+          </div>
+
+          {featuredEvents.length === 0 ? (
+            <div className="text-center py-12 bg-white rounded-lg shadow-sm">
+              <h2 className="text-xl mb-4">No events scheduled yet</h2>
+              <p className="mb-6 text-gray-600">
+                Be the first to host an event in your community!
+              </p>
+              <Link to="/events/create">
+                <Button className="flex items-center mx-auto bg-meetup-green hover:bg-meetup-green/90">
+                  <Plus className="h-4 w-4 mr-1" />
+                  Host Event
+                </Button>
+              </Link>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {featuredEvents.map((event) => (
+                <EventCard key={event.id} event={event} />
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-12 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-gray-50 p-6 rounded-lg text-center">
+              <div className="w-12 h-12 bg-meetup-lightGreen rounded-full flex items-center justify-center mx-auto mb-3">
+                <Calendar className="h-6 w-6 text-meetup-green" />
+              </div>
+              <h3 className="text-3xl font-bold text-gray-800 mb-2">{events.length}+</h3>
+              <p className="text-gray-600">Active Events</p>
+            </div>
+            <div className="bg-gray-50 p-6 rounded-lg text-center">
+              <div className="w-12 h-12 bg-meetup-lightGreen rounded-full flex items-center justify-center mx-auto mb-3">
+                <Users className="h-6 w-6 text-meetup-green" />
+              </div>
+              <h3 className="text-3xl font-bold text-gray-800 mb-2">5,000+</h3>
+              <p className="text-gray-600">Community Members</p>
+            </div>
+            <div className="bg-gray-50 p-6 rounded-lg text-center">
+              <div className="w-12 h-12 bg-meetup-lightGreen rounded-full flex items-center justify-center mx-auto mb-3">
+                <MapPin className="h-6 w-6 text-meetup-green" />
+              </div>
+              <h3 className="text-3xl font-bold text-gray-800 mb-2">20+</h3>
+              <p className="text-gray-600">Cities Covered</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="py-12 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="bg-meetup-green text-white rounded-lg p-8 text-center">
+            <h2 className="text-2xl font-bold mb-4">Stay Updated</h2>
+            <p className="max-w-2xl mx-auto mb-6">
+              Subscribe to our newsletter to get updates on the latest events and community news
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Link to="/clubs/register">
-                <Button className="bg-white text-black hover:bg-gray-200">
-                  Create a Club <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-              <Link to="/clubs">
-                <Button variant="outline" className="border-white text-white hover:bg-white/10">
-                  Explore Clubs
-                </Button>
-              </Link>
-            </div>
-          </div>
-          <div className="md:w-1/2 flex justify-center">
-            <div className="bg-gray-900 rounded-lg p-6 border border-gray-800 max-w-md">
-              <div className="text-center">
-                <h2 className="text-xl uppercase tracking-wider font-medium mb-1">Social and open technology community</h2>
-                <h3 className="text-xl uppercase tracking-wider font-medium mb-4">Pondicherry University</h3>
-                <img
-                  src="/lovable-uploads/c2a961d6-dffb-41de-a971-97c3c4d306c5.png"
-                  alt="FOSS Club Logo"
-                  className="mx-auto w-48 h-48 object-contain"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Forums Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-4">Join the Conversation</h2>
-          <p className="text-xl text-gray-600 text-center mb-12">
-            Engage with the community in our forums and discussion boards.
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[1, 2, 3].map((num) => (
-              <Card key={num} className="border border-gray-200 hover:shadow-md transition-shadow">
-                <CardContent className="p-6">
-                  <div className="flex items-center mb-3">
-                    <MessageSquare className="h-5 w-5 text-gray-500 mr-2" />
-                    <span className="text-sm text-gray-500">{10 + num * 3} replies</span>
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">Discussion Topic {num}</h3>
-                  <p className="text-gray-600 mb-6">
-                    Join the discussion on important topics in the free software community.
-                  </p>
-                  <Link to="/forum" className="flex justify-end">
-                    <Button variant="outline" className="mt-2">
-                      Join Discussion <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-          
-          <div className="flex justify-center mt-8">
-            <Link to="/forum">
-              <Button variant="outline" className="mx-auto">
-                Visit Forum
+            <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+              <Input 
+                placeholder="Your email address" 
+                className="bg-white/90 border-0 placeholder:text-gray-500"
+              />
+              <Button className="bg-white text-meetup-green hover:bg-gray-100">
+                Subscribe
               </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Events Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-4">Upcoming Events</h2>
-          <p className="text-xl text-gray-600 text-center mb-12">
-            Connect with the community at these upcoming free software events.
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {upcomingEvents.map((event, index) => (
-              <Card key={event.id} className="border border-gray-200 hover:shadow-md transition-shadow">
-                <CardContent className="p-6">
-                  <div className="flex items-center mb-3">
-                    <Calendar className="h-5 w-5 text-gray-500 mr-2" />
-                    <span className="text-sm text-gray-500">{`4/${7 + index}/2025`}</span>
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">FOSS Workshop {index + 1}</h3>
-                  <p className="text-gray-600 mb-6">
-                    Learn about the latest developments in free and open source software and how to contribute.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <Users className="h-5 w-5 text-gray-500 mr-2" />
-                      <span className="text-sm text-gray-500">{25 + index * 5} attendees</span>
-                    </div>
-                    <Link to={`/events/${event.id}`}>
-                      <Button>Register</Button>
-                    </Link>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-          
-          <div className="flex justify-center mt-8">
-            <Link to="/explore">
-              <Button variant="outline" className="mx-auto">
-                View All Events
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Clubs Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-4">Discover FOSS Clubs</h2>
-          <p className="text-xl text-gray-600 text-center mb-12">
-            Join a thriving ecosystem of free software communities around the world.
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((num) => (
-              <Card key={num} className="border border-gray-200 hover:shadow-md transition-shadow">
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-bold mb-2">FOSS Club {num}</h3>
-                  <p className="text-gray-600 mb-6">
-                    A community dedicated to promoting and developing free and open source software.
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <Users className="h-5 w-5 text-gray-500 mr-2" />
-                      <span className="text-sm text-gray-500">{60 + num * 10} members</span>
-                    </div>
-                    <Link to={`/clubs/${num}`}>
-                      <Button variant="outline" size="sm">
-                        View <ArrowRight className="ml-1 h-4 w-4" />
-                      </Button>
-                    </Link>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-          
-          <div className="flex justify-center mt-8">
-            <Link to="/clubs">
-              <Button variant="outline" className="mx-auto">
-                View All Clubs
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-4">Everything Your FOSS Club Needs</h2>
-          <p className="text-xl text-gray-600 text-center mb-12">
-            A complete platform designed to help free software communities thrive and grow.
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="flex-shrink-0">
-                <Users className="h-8 w-8 text-black" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold mb-2">Club Management</h3>
-                <p className="text-gray-600">
-                  Create and manage your club profile, add members, and organize your team structure.
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="flex-shrink-0">
-                <Calendar className="h-8 w-8 text-black" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold mb-2">Event Organization</h3>
-                <p className="text-gray-600">
-                  Plan, promote, and manage events with built-in registration and attendance tracking.
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="flex-shrink-0">
-                <Code className="h-8 w-8 text-black" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold mb-2">Resource Sharing</h3>
-                <p className="text-gray-600">
-                  Share code, documentation, presentations, and learning materials with your community.
-                </p>
-              </div>
-            </div>
-            
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="flex-shrink-0">
-                <MessageSquare className="h-8 w-8 text-black" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold mb-2">Community Forum</h3>
-                <p className="text-gray-600">
-                  Engage in discussions, ask questions, and collaborate with other FOSS enthusiasts.
-                </p>
-              </div>
-            </div>
-          </div>
-          
-          <div className="mt-12 flex justify-center">
-            <div className="bg-gray-900 rounded-lg p-6 border border-gray-800 max-w-md">
-              <div className="text-center text-white">
-                <h2 className="text-xl uppercase tracking-wider font-medium mb-1">Social and open technology community</h2>
-                <h3 className="text-xl uppercase tracking-wider font-medium mb-4">Pondicherry University</h3>
-                <img
-                  src="/lovable-uploads/c2a961d6-dffb-41de-a971-97c3c4d306c5.png"
-                  alt="FOSS Club Logo"
-                  className="mx-auto w-48 h-48 object-contain"
-                />
-              </div>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Final CTA Section */}
-      <section className="py-16 bg-black text-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold text-center mb-6">
-              Connect, Collaborate, Create with Free Software
-            </h2>
-            <p className="text-xl text-center mb-8 text-gray-300">
-              Hacktivist is a platform for free software clubs to organize, share resources, and grow their communities.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link to="/clubs/register">
-                <Button className="bg-white text-black hover:bg-gray-200">
-                  Start a Club <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-              <Link to="/clubs">
-                <Button variant="outline" className="border-white text-white hover:bg-white/10">
-                  Explore Clubs
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 py-6">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="flex items-center gap-2 mb-4 md:mb-0">
-              <Globe className="h-6 w-6 text-black" />
-              <span className="text-xl font-bold">Hacktivist</span>
-            </div>
-            
-            <div className="text-sm text-gray-500">
-              © 2025 Hacktivist. All rights reserved.
-            </div>
-            
-            <div className="flex gap-4 mt-4 md:mt-0">
-              <Link to="/terms" className="text-sm text-gray-500 hover:text-gray-700">
-                Terms
-              </Link>
-              <Link to="/privacy" className="text-sm text-gray-500 hover:text-gray-700">
-                Privacy
-              </Link>
-              <Link to="/contact" className="text-sm text-gray-500 hover:text-gray-700">
-                Contact
-              </Link>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };
