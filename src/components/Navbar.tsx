@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Calendar, Plus, Search } from "lucide-react";
+import { Calendar, Plus } from "lucide-react";
 
 const Navbar: React.FC = () => {
   return (
@@ -28,12 +28,7 @@ const Navbar: React.FC = () => {
           </Link>
         </div>
         
-        <div className="flex items-center space-x-3">
-          <Link to="/search">
-            <Button variant="ghost" size="icon" className="text-black">
-              <Search className="h-5 w-5" />
-            </Button>
-          </Link>
+        <div className="flex items-center">
           <Link to="/events/create">
             <Button className="flex items-center gap-1 bg-black hover:bg-gray-800 text-white">
               <Plus className="h-4 w-4" />

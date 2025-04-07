@@ -7,9 +7,10 @@ import { Event } from "@/types/event";
 
 interface EventHeaderProps {
   event: Event;
+  onBuyTicket?: () => void;
 }
 
-const EventHeader: React.FC<EventHeaderProps> = ({ event }) => {
+const EventHeader: React.FC<EventHeaderProps> = ({ event, onBuyTicket }) => {
   return (
     <div className="border-b pb-4">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
@@ -28,7 +29,10 @@ const EventHeader: React.FC<EventHeaderProps> = ({ event }) => {
           </div>
         </div>
         <div className="mt-4 md:mt-0">
-          <Button className="bg-meetup-green hover:bg-meetup-green/90">
+          <Button 
+            className="bg-meetup-green hover:bg-meetup-green/90"
+            onClick={onBuyTicket}
+          >
             Buy Ticket
           </Button>
         </div>

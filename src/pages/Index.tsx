@@ -5,15 +5,12 @@ import EventCard from "@/components/EventCard";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Calendar, MapPin, Plus, Search, TrendingUp, Users } from "lucide-react";
+import { Calendar, MapPin, Plus, TrendingUp, Users } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
 const Index: React.FC = () => {
   // Get first 6 events for featured section
   const featuredEvents = events.slice(0, 6);
-  
-  // Create a list of unique categories
-  const categories = [...new Set(events.map(event => event.category))];
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -37,56 +34,20 @@ const Index: React.FC = () => {
                     Host an Event
                   </Button>
                 </Link>
-                <Link to="/explore">
-                  <Button variant="outline" className="w-full sm:w-auto border-white text-white hover:bg-white/10">
+                <Link to="/workshops">
+                  <Button className="w-full sm:w-auto bg-white text-meetup-green hover:bg-gray-100">
                     Explore Events
                   </Button>
                 </Link>
               </div>
             </div>
-            <div className="md:w-1/2 flex justify-center">
-              <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-                <h3 className="font-semibold text-gray-800 mb-4">Find Events Near You</h3>
-                <div className="flex flex-col gap-4">
-                  <div className="relative">
-                    <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                    <Input 
-                      placeholder="Search events..." 
-                      className="pl-10"
-                    />
-                  </div>
-                  <div className="relative">
-                    <MapPin className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                    <Input 
-                      placeholder="Location" 
-                      className="pl-10"
-                    />
-                  </div>
-                  <Button className="w-full bg-meetup-green hover:bg-meetup-green/90">
-                    Search
-                  </Button>
-                </div>
-              </div>
+            <div className="md:w-1/2">
+              <img 
+                src="/placeholder.svg" 
+                alt="Events illustration" 
+                className="w-full max-w-md mx-auto rounded-lg shadow-lg"
+              />
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Category Section */}
-      <section className="py-12 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold mb-8">Browse by Category</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {categories.map((category) => (
-              <Link to={`/category/${category}`} key={category}>
-                <div className="bg-gray-50 hover:bg-gray-100 transition-colors rounded-lg p-4 text-center">
-                  <div className="w-12 h-12 bg-meetup-lightGreen rounded-full flex items-center justify-center mx-auto mb-3">
-                    <Calendar className="h-6 w-6 text-meetup-green" />
-                  </div>
-                  <span className="font-medium text-gray-700">{category}</span>
-                </div>
-              </Link>
-            ))}
           </div>
         </div>
       </section>
@@ -96,7 +57,7 @@ const Index: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-2xl font-bold">Featured Events</h2>
-            <Link to="/explore" className="text-meetup-green hover:text-meetup-green/80 font-medium flex items-center">
+            <Link to="/workshops" className="text-meetup-green hover:text-meetup-green/80 font-medium flex items-center">
               View all <TrendingUp className="ml-1 h-4 w-4" />
             </Link>
           </div>

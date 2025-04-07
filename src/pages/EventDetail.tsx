@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getEventById } from "@/data/events";
 import Navbar from "@/components/Navbar";
@@ -9,11 +9,20 @@ import EventTabs from "@/components/EventTabs";
 import EventSponsors from "@/components/EventSponsors";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { WorkshopRSVPForm } from "@/components/WorkshopRSVPForm";
 
 const EventDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const event = getEventById(id || "");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   if (!event) {
     return (
@@ -38,19 +47,34 @@ const EventDetail: React.FC = () => {
         <Button
           variant="outline"
           className="mb-6 flex items-center"
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/workshops")}
         >
           <ChevronLeft className="h-4 w-4 mr-1" />
           Back to Events
         </Button>
         
         <div className="bg-white rounded-lg shadow-sm p-6">
-          <EventHeader event={event} />
+          <EventHeader 
+            event={event} 
+            onBuyTicket={() => setIsDialogOpen(true)}
+          />
           <EventDetails event={event} />
           <EventTabs event={event} />
           <EventSponsors event={event} />
         </div>
       </div>
+
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle>Register for {event.title}</DialogTitle>
+            <DialogDescription>
+              Fill in your details to register for this event
+            </DialogDescription>
+          </DialogHeader>
+          <WorkshopRSVPForm workshopId={event.id} />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
