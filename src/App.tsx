@@ -33,6 +33,13 @@ const App = () => (
           <Route path="/clubs/:id" element={<ClubDetail />} />
           <Route path="/clubs/register" element={<ClubRegistration />} />
           <Route path="/workshops" element={<Workshops />} />
+          <Route path="/signin" element={<Explore />} />
+          <Route path="/signup" element={<Explore />} />
+          <Route path="/forum" element={<Explore />} />
+          <Route path="/resources" element={<Explore />} />
+          <Route path="/terms" element={<About />} />
+          <Route path="/privacy" element={<About />} />
+          <Route path="/contact" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
