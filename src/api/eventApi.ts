@@ -14,7 +14,8 @@ export const eventApi = {
     }
     
     return {
-      ...response,
+      status: response.status,
+      error: response.error,
       data: response.data?.map(event => apiAdapters.convertEventFromApi(event))
     };
   },
@@ -27,7 +28,8 @@ export const eventApi = {
     }
     
     return {
-      ...response,
+      status: response.status,
+      error: response.error,
       data: response.data ? apiAdapters.convertEventFromApi(response.data) : undefined
     };
   },
@@ -41,7 +43,8 @@ export const eventApi = {
     }
     
     return {
-      ...response,
+      status: response.status,
+      error: response.error,
       data: response.data ? apiAdapters.convertEventFromApi(response.data) : undefined
     };
   },
@@ -55,7 +58,8 @@ export const eventApi = {
     }
     
     return {
-      ...response,
+      status: response.status,
+      error: response.error,
       data: response.data ? apiAdapters.convertEventFromApi(response.data) : undefined
     };
   },

@@ -1,3 +1,4 @@
+
 // Common types
 export interface BaseModel {
   id: number;
@@ -102,6 +103,8 @@ export const apiAdapters = {
       category: apiEvent.category,
       description: apiEvent.description,
       date: apiEvent.date,
+      startTime: apiEvent.start_time,
+      endTime: apiEvent.end_time,
       location: apiEvent.location,
       organizer: apiEvent.organizer,
       mustAttend: apiEvent.must_attend,
@@ -123,8 +126,8 @@ export const apiAdapters = {
       category: event.category,
       description: event.description,
       date: event.date,
-      start_time: '',
-      end_time: '',
+      start_time: event.startTime || '',
+      end_time: event.endTime || '',
       location: event.location,
       organizer: event.organizer,
       must_attend: event.mustAttend || false,
