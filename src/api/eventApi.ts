@@ -6,7 +6,7 @@ import { Event } from '@/types/event';
 const EVENT_ENDPOINT = '/events/';
 
 export const eventApi = {
-  getAllEvents: async () => {
+  getAllEvents: async (): Promise<{data?: Event[]; error?: string; status: number}> => {
     const response = await apiService.getAll<ApiEvent>(EVENT_ENDPOINT);
     
     if (response.error) {
@@ -19,7 +19,7 @@ export const eventApi = {
     };
   },
   
-  getEventById: async (id: string | number) => {
+  getEventById: async (id: string | number): Promise<{data?: Event; error?: string; status: number}> => {
     const response = await apiService.getById<ApiEvent>(EVENT_ENDPOINT, id);
     
     if (response.error) {
@@ -32,7 +32,7 @@ export const eventApi = {
     };
   },
   
-  createEvent: async (event: Omit<Event, 'id'>) => {
+  createEvent: async (event: Omit<Event, 'id'>): Promise<{data?: Event; error?: string; status: number}> => {
     const apiEvent = apiAdapters.convertEventToApi(event as Event);
     const response = await apiService.create<typeof apiEvent, ApiEvent>(EVENT_ENDPOINT, apiEvent);
     
@@ -46,7 +46,7 @@ export const eventApi = {
     };
   },
   
-  updateEvent: async (id: string | number, event: Partial<Event>) => {
+  updateEvent: async (id: string | number, event: Partial<Event>): Promise<{data?: Event; error?: string; status: number}> => {
     const apiEvent = apiAdapters.convertEventToApi({...(event as Event), id: id.toString()});
     const response = await apiService.update<typeof apiEvent, ApiEvent>(EVENT_ENDPOINT, id, apiEvent);
     
@@ -60,7 +60,7 @@ export const eventApi = {
     };
   },
   
-  deleteEvent: async (id: string | number) => {
+  deleteEvent: async (id: string | number): Promise<{error?: string; status: number}> => {
     return await apiService.delete(EVENT_ENDPOINT, id);
   }
 };
