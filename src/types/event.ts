@@ -1,12 +1,9 @@
-
 export interface Event {
   id: string;
   title: string;
   category: string;
   description: string;
   date: string;
-  startTime: string;
-  endTime: string;
   location: string;
   locationDetails?: string;
   mustAttend?: boolean;
