@@ -1,4 +1,3 @@
-
 import { apiService } from '@/lib/api';
 import { ApiEvent, apiAdapters } from '@/types/api-types';
 import { Event } from '@/types/event';
@@ -10,12 +9,14 @@ export const eventApi = {
     const response = await apiService.getAll<ApiEvent>(EVENT_ENDPOINT);
     
     if (response.error) {
-      return response;
+      return {
+        status: response.status,
+        error: response.error
+      };
     }
     
     return {
       status: response.status,
-      error: response.error,
       data: response.data?.map(event => ({
         ...apiAdapters.convertEventFromApi(event),
         id: event.id.toString()
@@ -27,12 +28,14 @@ export const eventApi = {
     const response = await apiService.getById<ApiEvent>(EVENT_ENDPOINT, id);
     
     if (response.error) {
-      return response;
+      return {
+        status: response.status,
+        error: response.error
+      };
     }
     
     return {
       status: response.status,
-      error: response.error,
       data: response.data ? {
         ...apiAdapters.convertEventFromApi(response.data),
         id: response.data.id.toString()
