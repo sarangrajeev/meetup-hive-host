@@ -1,12 +1,13 @@
 
 import { apiService } from '@/lib/api';
-import { Event, apiAdapters } from '@/types/api-types';
+import { ApiEvent, apiAdapters } from '@/types/api-types';
+import { Event } from '@/types/event';
 
 const EVENT_ENDPOINT = '/events/';
 
 export const eventApi = {
   getAllEvents: async () => {
-    const response = await apiService.getAll<Event>(EVENT_ENDPOINT);
+    const response = await apiService.getAll<ApiEvent>(EVENT_ENDPOINT);
     
     if (response.error) {
       return response;
@@ -19,7 +20,7 @@ export const eventApi = {
   },
   
   getEventById: async (id: string | number) => {
-    const response = await apiService.getById<Event>(EVENT_ENDPOINT, id);
+    const response = await apiService.getById<ApiEvent>(EVENT_ENDPOINT, id);
     
     if (response.error) {
       return response;
@@ -33,12 +34,30 @@ export const eventApi = {
   
   createEvent: async (event: Omit<Event, 'id'>) => {
     const apiEvent = apiAdapters.convertEventToApi(event as Event);
-    return await apiService.create<typeof apiEvent, Event>(EVENT_ENDPOINT, apiEvent);
+    const response = await apiService.create<typeof apiEvent, ApiEvent>(EVENT_ENDPOINT, apiEvent);
+    
+    if (response.error) {
+      return response;
+    }
+    
+    return {
+      ...response,
+      data: response.data ? apiAdapters.convertEventFromApi(response.data) : undefined
+    };
   },
   
   updateEvent: async (id: string | number, event: Partial<Event>) => {
-    const apiEvent = apiAdapters.convertEventToApi({...(event as Event), id: Number(id)});
-    return await apiService.update<typeof apiEvent, Event>(EVENT_ENDPOINT, id, apiEvent);
+    const apiEvent = apiAdapters.convertEventToApi({...(event as Event), id: id.toString()});
+    const response = await apiService.update<typeof apiEvent, ApiEvent>(EVENT_ENDPOINT, id, apiEvent);
+    
+    if (response.error) {
+      return response;
+    }
+    
+    return {
+      ...response,
+      data: response.data ? apiAdapters.convertEventFromApi(response.data) : undefined
+    };
   },
   
   deleteEvent: async (id: string | number) => {

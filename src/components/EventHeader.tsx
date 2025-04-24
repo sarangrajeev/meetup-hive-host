@@ -3,7 +3,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Star } from "lucide-react";
-import { Event } from "@/types/api-types";
+import { Event } from "@/types/event";
 
 interface EventHeaderProps {
   event: Event;
@@ -20,7 +20,7 @@ const EventHeader: React.FC<EventHeaderProps> = ({ event, onBuyTicket }) => {
             <Badge variant="outline" className="text-sm dark:border-gray-600 dark:text-gray-300">
               {event.category}
             </Badge>
-            {event.must_attend && (
+            {event.mustAttend && (
               <div className="bg-meetup-lightGreen text-meetup-green px-3 py-1 rounded-md flex items-center dark:bg-emerald-900 dark:text-emerald-400">
                 <Star className="h-4 w-4 mr-1" />
                 <span className="text-sm font-medium">Must Attend</span>

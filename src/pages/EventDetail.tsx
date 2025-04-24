@@ -19,7 +19,7 @@ import { WorkshopRSVPForm } from "@/components/WorkshopRSVPForm";
 import { getEventById } from "@/data/events";
 import { useApiQuery } from "@/hooks/useApiQuery";
 import { eventApi } from "@/api/eventApi";
-import { Event } from "@/types/api-types";
+import { Event } from "@/types/event";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const EventDetail: React.FC = () => {

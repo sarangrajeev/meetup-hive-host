@@ -27,7 +27,8 @@ export interface GlugEvent extends BaseModel {
   event: number;
 }
 
-export interface Event extends BaseModel {
+// API Event interface
+export interface ApiEvent extends BaseModel {
   title: string;
   category: string;
   description: string;
@@ -89,51 +90,53 @@ export interface Tag extends BaseModel {
   description?: string;
 }
 
+// Import the frontend Event type for proper mapping
+import { Event, Sponsor } from '@/types/event';
+
 // Data adapters to convert between API and frontend formats
 export const apiAdapters = {
   // Convert Django API format to frontend format for Event
-  convertEventFromApi: (apiEvent: any): Event => {
+  convertEventFromApi: (apiEvent: ApiEvent): Event => {
     return {
-      id: apiEvent.id,
+      id: apiEvent.id.toString(),
       title: apiEvent.title,
       category: apiEvent.category,
       description: apiEvent.description,
       date: apiEvent.date,
-      start_time: apiEvent.start_time,
-      end_time: apiEvent.end_time,
+      startTime: apiEvent.start_time,
+      endTime: apiEvent.end_time,
       location: apiEvent.location,
       organizer: apiEvent.organizer,
-      must_attend: apiEvent.must_attend,
-      map_url: apiEvent.map_url,
-      sponsors: apiEvent.sponsors?.map((s: any) => ({
-        id: s.id,
+      mustAttend: apiEvent.must_attend,
+      mapUrl: apiEvent.map_url,
+      sponsors: apiEvent.sponsors?.map((s): Sponsor => ({
         name: s.name,
-        level: s.level,
-        logo_url: s.logo_url,
+        level: s.level.toLowerCase() as 'platinum' | 'gold' | 'silver' | 'bronze',
+        logoUrl: s.logo_url,
         website: s.website
       }))
     };
   },
 
   // Convert frontend format to Django API format for Event
-  convertEventToApi: (event: Event): any => {
+  convertEventToApi: (event: Event): ApiEvent => {
     return {
-      id: event.id,
+      id: parseInt(event.id) || 0,
       title: event.title,
       category: event.category,
       description: event.description,
       date: event.date,
-      start_time: event.start_time,
-      end_time: event.end_time,
+      start_time: event.startTime,
+      end_time: event.endTime,
       location: event.location,
       organizer: event.organizer,
-      must_attend: event.must_attend,
-      map_url: event.map_url,
+      must_attend: event.mustAttend || false,
+      map_url: event.mapUrl,
       sponsors: event.sponsors?.map(s => ({
-        id: s.id,
+        id: 0, // Default ID as it might be a new sponsor
         name: s.name,
         level: s.level,
-        logo_url: s.logo_url,
+        logo_url: s.logoUrl,
         website: s.website
       }))
     };
