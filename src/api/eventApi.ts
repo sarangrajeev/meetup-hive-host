@@ -16,7 +16,10 @@ export const eventApi = {
     return {
       status: response.status,
       error: response.error,
-      data: response.data?.map(event => apiAdapters.convertEventFromApi(event))
+      data: response.data?.map(event => ({
+        ...apiAdapters.convertEventFromApi(event),
+        id: event.id.toString()
+      }))
     };
   },
   
@@ -30,7 +33,10 @@ export const eventApi = {
     return {
       status: response.status,
       error: response.error,
-      data: response.data ? apiAdapters.convertEventFromApi(response.data) : undefined
+      data: response.data ? {
+        ...apiAdapters.convertEventFromApi(response.data),
+        id: response.data.id.toString()
+      } : undefined
     };
   },
   
@@ -45,7 +51,10 @@ export const eventApi = {
     return {
       status: response.status,
       error: response.error,
-      data: response.data ? apiAdapters.convertEventFromApi(response.data) : undefined
+      data: response.data ? {
+        ...apiAdapters.convertEventFromApi(response.data),
+        id: response.data.id.toString()
+      } : undefined
     };
   },
   
@@ -60,7 +69,10 @@ export const eventApi = {
     return {
       status: response.status,
       error: response.error,
-      data: response.data ? apiAdapters.convertEventFromApi(response.data) : undefined
+      data: response.data ? {
+        ...apiAdapters.convertEventFromApi(response.data),
+        id: response.data.id.toString()
+      } : undefined
     };
   },
   
