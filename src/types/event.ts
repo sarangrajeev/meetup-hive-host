@@ -5,8 +5,8 @@ export interface Event {
   category: string;
   description: string;
   date: string;
-  startTime?: string;
-  endTime?: string;
+  startTime: string;
+  endTime: string;
   location: string;
   locationDetails?: string;
   mustAttend?: boolean;
